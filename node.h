@@ -9,10 +9,19 @@ class Iterator;
 
 template <typename T>
 class Node {
+
     private:
         T data;
-        Node<T> *left;
-        Node<T> *right;
+        BSTree<T> *left;
+        BSTree<T> *right;
+
+
+    public:
+        Node(T data) {
+            this->data = data;
+            left = new BSTree<T>();
+            right = new BSTree<T>();
+        };
 
     template<class>
     friend class BSTree; 
