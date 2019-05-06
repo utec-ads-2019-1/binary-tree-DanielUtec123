@@ -100,12 +100,89 @@ class BSTree {
         }
 
         bool remove(T data) {
+            if(find(data)){
 
-            if(!find(data)){
-                return false;
+                BSTree<T>* temp = this ;
+
+                while(temp->root){
+                    if(data==temp->root->data){
+                        break;
+                    }
+                    else if(data<temp->root->data) {
+                        temp = temp->root->left;
+                    }
+                    else if(data>temp->root->data){
+                        temp = temp->root->right;
+                    }
+                }
+                //temp apunta al arbol del nodo que queremos remover
+
+                //si es un nodo hoja
+
+                if(!temp->root->left->root and !temp->root->right->root){
+                    delete temp->root;
+                    temp->root = nullptr;
+                }else if((temp->root->right->root and !temp->root->left->root) or (!temp->root->right->root and temp->root->left->root)){
+                    //si es un nodo con un hijo
+
+                    //si su hijo es el nodo de la izquierda
+                    if(temp->root->left->root){
+
+
+                        BSTree<T> * nuevoleft = temp->root->left->root->left;
+                        BSTree<T> * nuevoright = temp->root->left->root->right;
+                        T nuevodato = temp->root->left->root->data;
+
+                        delete temp->root->left;
+
+
+
+                        temp->root->left = nuevoleft;
+                        temp->root->right = nuevoright;
+                        temp->root->data = nuevodato;
+
+
+
+                    } else if(temp->root->right->root){
+                        //si su hijo es el nodo de la derecha
+
+                        BSTree<T> * nuevoleft = temp->root->right->root->left;
+                        BSTree<T> * nuevoright = temp->root->right->root->right;
+                        T nuevodato = temp->root->right->root->data;
+
+                        delete temp->root->right;
+
+                        temp->root->left = nuevoleft;
+                        temp->root->right = nuevoright;
+                        temp->root->data = nuevodato;
+
+
+                    }
+
+
+                }else if(temp->root->left->root and temp->root->right->root){
+
+                    // encontramos al elemento anterior
+
+                    BSTree<T> *ant = temp->root->left;
+
+                    while (ant->root->right->root){
+                        ant = ant->root->right;
+                    }
+                    //ant apunta al ARBOL que tiene el nodo anterior a temp
+
+
+                    T tdata = ant->root->data;
+                    ant->root->data = data;
+                    temp->root->data = tdata;
+
+                    ant->remove(data);
+
+                }
+
+                return true;
             } else{
-
-
+                return false;
 
             }
         }
@@ -134,19 +211,21 @@ class BSTree {
         }
 
         void traverseInOrder() {
+
+
             if(this->root){
 
-                this->root->left->traversePreOrder();
+                this->root->left->traverseInOrder();
                 cout << this->root->data<< " ";
-                this->root->right->traversePreOrder();
+                this->root->right->traverseInOrder();
             }
         }
 
         void traversePostOrder() {
             if(this->root){
 
-                this->root->left->traversePreOrder();
-                this->root->right->traversePreOrder();
+                this->root->left->traversePostOrder();
+                this->root->right->traversePostOrder();
                 cout << this->root->data << " ";
             }
         }

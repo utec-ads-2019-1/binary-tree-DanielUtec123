@@ -23,6 +23,11 @@ class Node {
             right = new BSTree<T>();
         };
 
+        void Killson(){
+
+        }
+
+
     template<class>
     friend class BSTree; 
 
