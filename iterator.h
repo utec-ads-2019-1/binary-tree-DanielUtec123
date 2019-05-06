@@ -2,39 +2,87 @@
 #define ITERATOR_H
 
 #include "node.h"
+#include <vector>
 
 template <typename T> 
 class Iterator {
     private:
         Node<T> *current;
+        int index;
+        vector<Node<T>*> data;
+
 
     public:
         Iterator() {
-            // TODO
+            this->current = nullptr;
         }
 
         Iterator(Node<T> *node) {
-            // TODO
+
+                makelist(node);
+                this->current = (this->data)[0];
+                this->index = 0;
+
         }
 
-        Iterator<T> operator=(Iterator<T> other) {          
-            // TODO
+        void makelist(Node<T> *node){
+
+                if(node->left->root)
+                        makelist(node->left->root);
+                (this->data).push_back(node);
+                if(node->right->root)
+                        makelist(node->right->root);
+
+
+        }
+
+
+        Iterator<T> operator=(Iterator<T> other) {
+                this->current=other->current;
         }
 
         bool operator!=(Iterator<T> other) {
-            // TODO
+                return this->current!=other.current;
         }
 
         Iterator<T> operator++() {
-            // TODO
+
+
+                if(this->index < data.size()-1){
+
+                        this->index = this->index +1;
+                        this->current = data[this->index];
+
+
+                } else if(this->index = data.size()-1){
+                        this->current = nullptr;
+                        this->index = this->index +1;
+
+                }
+
+                return (*this);
+
         }
 
         Iterator<T> operator--() {
-            // TODO
+                if(this->index > 0){
+
+                        this->index = this->index -1;
+                        this->current = data[this->index];
+
+
+                } else if(this->index = 0){
+                        this -> index = this->index -1;
+                        this->current = nullptr;
+                }
+                return (*this);
+
         }
 
         T operator*() {
-            // TODO
+                if(!this->current)
+                        throw out_of_range("el iterador apunta a null\n");
+                return this->current->data;
         }
 };
 
