@@ -18,7 +18,6 @@ void Tester::testBSFTree(Mocker mocker, vector<T> elements) {
 
         ASSERT(test->find(elements[j]), "There is a problem with the insert or find");
     }
-    test->traverseInOrder();
 
 
     sortAndPrune(elements);
@@ -30,14 +29,14 @@ void Tester::testBSFTree(Mocker mocker, vector<T> elements) {
         unsigned int index = mocker.generateRandomInt(0, elements.size() - 1);
         T temp = elements.at(index);
         elements.erase(elements.begin() + index);
-        cout << "inicio" << endl;
+        /*cout << "inicio" << endl;
         test->traverseInOrder();
-        cout << "fin" << endl;
+        cout << "fin" << endl;*/
         test->remove(temp);
-        cout << temp << endl;
+        /*cout << temp << endl;
         cout << "inicio" << endl;
         test->traverseInOrder();
-        cout << "fin" << endl;
+        cout << "fin" << endl;*/
         ASSERT(!test->find(temp), "There is a problem with the remove or find");
     }
 
@@ -53,6 +52,7 @@ void Tester::testBSFTree(Mocker mocker, vector<T> elements) {
         --it;
         ASSERT(elements.at(j) == *it, "There is a problem with the iterator (--)");
     }
+
 }
 
 template <typename T>

@@ -231,16 +231,21 @@ class BSTree {
         }
 
         Iterator<T> begin() {
-            // TODO
+            if(this->root){
+                return Iterator<T>(this->root);
+            }
+            return Iterator<T>();
         }
 
-        Iterator<T> end() { 
-            // TODO
+        Iterator<T> end() {
+            return Iterator<T>();
         }
 
         ~BSTree() {
             // TODO
         }
+    template<class>
+    friend class Iterator;
 };
 
 #endif
