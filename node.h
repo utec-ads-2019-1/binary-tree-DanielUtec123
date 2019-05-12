@@ -12,6 +12,7 @@ class Node {
 
     private:
         T data;
+        // Interesante tu solución, pero quizás estás desperdiciando un poco de memoria al hacer esto. Igual está bien
         BSTree<T> *left;
         BSTree<T> *right;
 

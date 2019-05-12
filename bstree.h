@@ -23,6 +23,7 @@ class BSTree {
                     this->root->right->find(data);
 
                 }
+                // Falta return 
             } else{
                 return false;
             }
@@ -53,6 +54,7 @@ class BSTree {
                 if(data > this->root->data ){
                     this->root->right->insert(data);
                 }
+                // Falta return
 
             } else{
 
@@ -242,6 +244,7 @@ class BSTree {
         }
 
         ~BSTree() {
+            // Falta destructor
             // TODO
         }
     template<class>
